@@ -36,7 +36,7 @@ void adicionarCarro(){
         printf("\nEssa vaga ja esta ocupada!\n");
     } else {
         vagas[andar][vaga] = 1;
-        printf("\nCarro adicionado com sucessos\n");
+        printf("\nCarro adicionado com sucesso!\n");
     }
 
     aguardar();
@@ -94,22 +94,31 @@ void vagasPorAndar(){
 
 void vagasEstacionamento(){
     int colunas = sizeof(vagas[0]) / sizeof(vagas[0][0]);
+    int total = 0;
 
+    int livres1 = 0;
+    printf("Terreo:\n");
     for(int i = 0; i < colunas; i++){
-        if(vagas[1][i] == 0){
-            printf("Terreo: vaga [%d] esta disponivel\n", i);
+        if(vagas[1][i] == 0){ 
+            printf("  Vaga [%d] disponivel\n", i); 
+            livres1++; 
         }
     }
+        if(livres1 == 0) printf("  Nenhuma vaga livre.\n");
+        total += livres1;
 
-    printf("\n");
-
-    for(int i = 0; i < colunas; i++){
-        if(vagas[0][i] == 0){
-            printf("Subsolo: vaga [%d] esta disponivel\n", i);
+        printf("\nSubsolo:\n");
+        int livres0 = 0;
+        for(int i = 0; i < colunas; i++){
+            if(vagas[0][i] == 0){ 
+                printf("  Vaga [%d] disponivel\n", i); 
+                livres0++; }
         }
-    }
+        if(livres0 == 0) printf("  Nenhuma vaga livre.\n");
+        total += livres0;
 
-    aguardar();
+        printf("\nTotal geral: %d vaga(s) livre(s).\n", total);
+        aguardar();
 }
 
 int main(){
