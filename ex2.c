@@ -32,9 +32,12 @@ void adicionarCarro(){
         if(vaga < 0 || vaga > 9) printf("Vaga invalida. Tente novamente.\n");
     } while(vaga < 0 || vaga > 9);
 
-    vagas[andar][vaga] = 1;
-
-    printf("\nCarro adicionado com sucesso!\n");
+     if (vagas[andar][vaga] == 1) {
+        printf("\nEssa vaga ja esta ocupada!\n");
+    } else {
+        vagas[andar][vaga] = 1;
+        printf("\nCarro adicionado com sucessos\n");
+    }
 
     aguardar();
 }
@@ -75,11 +78,17 @@ void vagasPorAndar(){
         if(andar != 0 && andar != 1) printf("Andar invalido. Tente novamente.\n");
     } while(andar != 0 && andar != 1);
 
+    int livres = 0;
     for(int i = 0; i < colunas; i++){
         if(vagas[andar][i] == 0){
             printf("Vaga [%d] esta vazia\n", i);
+            livres++;
         }
     }
+
+    if (livres == 0) printf("  Nenhuma vaga livre neste andar.\n");
+    else printf("\nTotal: %d vaga(s) livre(s).\n", livres);
+
     aguardar();
 }
 
@@ -109,6 +118,7 @@ int main(){
 
 
     do {
+        limparTela();
         printf("Escolha uma opcao\n");
         printf("\n");
         printf("  [1]  Adicionar carro\n");
@@ -117,32 +127,31 @@ int main(){
         printf("  [4]  Vagas no estacionamento\n");
         printf("  [0]  Sair\n");
         printf("\n");
-        scanf("%d", &escolha);
+        if(scanf("%d", &escolha) != 1){
+            printf("Erro: Digite apenas os numeros indicados.");
+            return 0;
+        }
 
         switch (escolha){
             case 1:
-            limparTela();
+            
             adicionarCarro();
             break;
             case 2:
-            limparTela();
             removerCarro();
             break;
             case 3:
-            limparTela();
             vagasPorAndar();
             break;
             case 4:
-            limparTela();
             vagasEstacionamento();
             break;
             case 0:
-            limparTela();
             printf("Encerrando o sistema. Ate logo!\n\n");
             break;
             default:
-            limparTela();
             printf("Erro: Opcao invalida.\n\n");
+            aguardar();
         }
 
     } while (escolha != 0);
