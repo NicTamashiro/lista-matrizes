@@ -5,34 +5,41 @@ int vagas[2][10];
 
 void limparTela(){
     #ifdef _WIN32
-    system("cls");   // roda isso no Windows
+    system("cls");
     #else
-    system("clear"); // roda isso no Linux/Mac
+    system("clear");
     #endif
 }
 
 void aguardar() {
     printf("\nPressione ENTER para continuar...");
     while (getchar() != '\n');
-    while (getchar() != '\n');
+}
+
+void limparBuffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
 }
 
 void adicionarCarro(){
-    int andar;
-    int vaga;
+    int andar = -1;
+    int vaga = -1;
+
     do{
         printf("Qual o andar da vaga (1 = terreo / 0 = subsolo): ");
         scanf("%d", &andar);
+        limparBuffer();
         if(andar != 0 && andar != 1) printf("Andar invalido. Tente novamente.\n");
     } while(andar != 0 && andar != 1);
 
     do{
         printf("Qual o numero da vaga (0 - 9): ");
         scanf("%d", &vaga);
+        limparBuffer();
         if(vaga < 0 || vaga > 9) printf("Vaga invalida. Tente novamente.\n");
     } while(vaga < 0 || vaga > 9);
 
-     if (vagas[andar][vaga] == 1) {
+    if (vagas[andar][vaga] == 1) {
         printf("\nEssa vaga ja esta ocupada!\n");
     } else {
         vagas[andar][vaga] = 1;
@@ -43,18 +50,20 @@ void adicionarCarro(){
 }
 
 void removerCarro(){
+    int andar = -1;
+    int vaga = -1;
 
-    int andar;
-    int vaga;
     do{
         printf("Qual o andar da vaga que deseja remover (1 = terreo / 0 = subsolo): ");
         scanf("%d", &andar);
+        limparBuffer();
         if(andar != 0 && andar != 1) printf("Andar invalido. Tente novamente.\n");
     } while(andar != 0 && andar != 1);
 
     do{
         printf("Qual o numero da vaga que deseja remover (0 - 9): ");
         scanf("%d", &vaga);
+        limparBuffer();
         if(vaga < 0 || vaga > 9) printf("Vaga invalida. Tente novamente.\n");
     } while(vaga < 0 || vaga > 9);
 
@@ -69,12 +78,13 @@ void removerCarro(){
 }
 
 void vagasPorAndar(){
-    int andar;
+    int andar = -1;
     int colunas = sizeof(vagas[0]) / sizeof(vagas[0][0]);
-    do{
 
+    do{
         printf("Qual andar deseja verificar quais vagas estao livres (1 = terreo / 0 = subsolo): ");
         scanf("%d", &andar);
+        limparBuffer();
         if(andar != 0 && andar != 1) printf("Andar invalido. Tente novamente.\n");
     } while(andar != 0 && andar != 1);
 
@@ -104,27 +114,26 @@ void vagasEstacionamento(){
             livres1++; 
         }
     }
-        if(livres1 == 0) printf("  Nenhuma vaga livre.\n");
-        total += livres1;
+    if(livres1 == 0) printf("  Nenhuma vaga livre.\n");
+    total += livres1;
 
-        printf("\nSubsolo:\n");
-        int livres0 = 0;
-        for(int i = 0; i < colunas; i++){
-            if(vagas[0][i] == 0){ 
-                printf("  Vaga [%d] disponivel\n", i); 
-                livres0++; }
+    printf("\nSubsolo:\n");
+    int livres0 = 0;
+    for(int i = 0; i < colunas; i++){
+        if(vagas[0][i] == 0){ 
+            printf("  Vaga [%d] disponivel\n", i); 
+            livres0++;
         }
-        if(livres0 == 0) printf("  Nenhuma vaga livre.\n");
-        total += livres0;
+    }
+    if(livres0 == 0) printf("  Nenhuma vaga livre.\n");
+    total += livres0;
 
-        printf("\nTotal geral: %d vaga(s) livre(s).\n", total);
-        aguardar();
+    printf("\nTotal geral: %d vaga(s) livre(s).\n", total);
+    aguardar();
 }
 
 int main(){
-
-    int escolha;
-
+    int escolha = -1;
 
     do {
         limparTela();
@@ -136,31 +145,28 @@ int main(){
         printf("  [4]  Vagas no estacionamento\n");
         printf("  [0]  Sair\n");
         printf("\n");
-        if(scanf("%d", &escolha) != 1){
-            printf("Erro: Digite apenas os numeros indicados.");
-            return 0;
-        }
+        scanf("%d", &escolha);
+        limparBuffer();
 
         switch (escolha){
-            case 1:
-            
-            adicionarCarro();
-            break;
-            case 2:
-            removerCarro();
-            break;
-            case 3:
-            vagasPorAndar();
-            break;
-            case 4:
-            vagasEstacionamento();
-            break;
+            case 1: 
+                adicionarCarro();      
+                break;
+            case 2: 
+                removerCarro();        
+                break;
+            case 3: 
+                vagasPorAndar();       
+                break;
+            case 4: 
+                vagasEstacionamento(); 
+                break;
             case 0:
-            printf("Encerrando o sistema. Ate logo!\n\n");
-            break;
+                printf("Encerrando o sistema. Ate logo!\n\n");
+                break;
             default:
-            printf("Erro: Opcao invalida.\n\n");
-            aguardar();
+                printf("Erro: Opcao invalida.\n\n");
+                aguardar();
         }
 
     } while (escolha != 0);
