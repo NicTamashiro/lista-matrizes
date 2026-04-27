@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int vagas[10][10];
+int vagas[2][10];
 
 void limparTela(){
     #ifdef _WIN32
@@ -84,7 +84,22 @@ void vagasPorAndar(){
 }
 
 void vagasEstacionamento(){
-    printf("vagas totais\n\n");
+    int colunas = sizeof(vagas[0]) / sizeof(vagas[0][0]);
+
+    for(int i = 0; i < colunas; i++){
+        if(vagas[1][i] == 0){
+            printf("Terreo: vaga [%d] esta disponivel\n", i);
+        }
+    }
+
+    printf("\n");
+
+    for(int i = 0; i < colunas; i++){
+        if(vagas[0][i] == 0){
+            printf("Subsolo: vaga [%d] esta disponivel\n", i);
+        }
+    }
+
     aguardar();
 }
 
