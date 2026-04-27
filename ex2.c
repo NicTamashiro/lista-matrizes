@@ -40,6 +40,7 @@ void adicionarCarro(){
 }
 
 void removerCarro(){
+
     int andar;
     int vaga;
     do{
@@ -63,10 +64,25 @@ void removerCarro(){
 
     aguardar();
 }
+
 void vagasPorAndar(){
-    printf("vagas por andar\n\n");
+    int andar;
+    int colunas = sizeof(vagas[0]) / sizeof(vagas[0][0]);
+    do{
+
+        printf("Qual andar deseja verificar quais vagas estao livres (1 = terreo / 0 = subsolo): ");
+        scanf("%d", &andar);
+        if(andar != 0 && andar != 1) printf("Andar invalido. Tente novamente.\n");
+    } while(andar != 0 && andar != 1);
+
+    for(int i = 0; i < colunas; i++){
+        if(vagas[andar][i] == 0){
+            printf("Vaga [%d] esta vazia\n", i);
+        }
+    }
     aguardar();
 }
+
 void vagasEstacionamento(){
     printf("vagas totais\n\n");
     aguardar();
