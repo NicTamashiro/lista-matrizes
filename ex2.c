@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int vagas[10][10];
+
 void limparTela(){
     #ifdef _WIN32
     system("cls");   // roda isso no Windows
@@ -16,11 +18,49 @@ void aguardar() {
 }
 
 void adicionarCarro(){
-    printf("Adicinando\n\n");
+    int andar;
+    int vaga;
+    do{
+        printf("Qual o andar da vaga (1 = terreo / 0 = subsolo): ");
+        scanf("%d", &andar);
+        if(andar != 0 && andar != 1) printf("Andar invalido. Tente novamente.\n");
+    } while(andar != 0 && andar != 1);
+
+    do{
+        printf("Qual o numero da vaga (0 - 9): ");
+        scanf("%d", &vaga);
+        if(vaga < 0 || vaga > 9) printf("Vaga invalida. Tente novamente.\n");
+    } while(vaga < 0 || vaga > 9);
+
+    vagas[andar][vaga] = 1;
+
+    printf("\nCarro adicionado com sucesso!\n");
+
     aguardar();
 }
+
 void removerCarro(){
-    printf("removendo\n\n");
+    int andar;
+    int vaga;
+    do{
+        printf("Qual o andar da vaga que deseja remover (1 = terreo / 0 = subsolo): ");
+        scanf("%d", &andar);
+        if(andar != 0 && andar != 1) printf("Andar invalido. Tente novamente.\n");
+    } while(andar != 0 && andar != 1);
+
+    do{
+        printf("Qual o numero da vaga que deseja remover (0 - 9): ");
+        scanf("%d", &vaga);
+        if(vaga < 0 || vaga > 9) printf("Vaga invalida. Tente novamente.\n");
+    } while(vaga < 0 || vaga > 9);
+
+    if(vagas[andar][vaga] == 0){
+        printf("Essa vaga ja esta vazia!\n");
+    } else {
+        vagas[andar][vaga] = 0;
+        printf("\nCarro removido com sucesso!\n");
+    }
+
     aguardar();
 }
 void vagasPorAndar(){
@@ -34,7 +74,6 @@ void vagasEstacionamento(){
 
 int main(){
 
-    int vagas[10][10];
     int escolha;
 
 
