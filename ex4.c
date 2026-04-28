@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <stdio.h>
+#include <string.h>
 
 void calcularDigitoVerificador(int arr[]){
     int soma1 = 0;
@@ -27,16 +27,36 @@ void calcularDigitoVerificador(int arr[]){
     
 }
 
+void imprimirCPF(int arr[]){
+    for(int i = 0; i < 9; i++){
+        printf("%d", arr[i]);
+    }
+    printf("-%d%d", arr[9], arr[10]);
+}
+
 int main(){
 
     int arr[11];
+    char input[20];
 
-    printf("Digite os 9 primeiros numeros de seu CPF: \n");
+    printf("Digite os 9 primeiros numeros de seu CPF:\n");
+    scanf("%19s", input);
+
+    if(strlen(input) != 9){
+        printf("Erro: Digite exatamente 9 digitos.\n");
+        return 1;
+    }
+    
     for(int i = 0; i < 9; i++){
-        scanf("%d", &arr[i]);
+        if(input[i] < '0' || input[i] > '9'){
+            printf("Erro: Entrada invalida!\n");
+            return 1;
+        }
+        arr[i] = input[i] - '0'; // conversao '4' - '0' -> 52 - 48 -> 4
     }
 
     calcularDigitoVerificador(arr);
+    imprimirCPF(arr);
 
     return 0;
 }
