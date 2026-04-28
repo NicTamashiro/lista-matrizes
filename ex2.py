@@ -2,7 +2,7 @@ import os
 
 vagas = [
     [0,0,0,0,0,0,0,0,0,0], # subsolo (0)
-    [0,0,0,0,0,0,0,0,0,0]  # subsolo (1)
+    [0,0,0,0,0,0,0,0,0,0]  # terreo (1)
 ]
 
 def limpar_tela():
