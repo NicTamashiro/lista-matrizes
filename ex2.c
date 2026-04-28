@@ -96,7 +96,7 @@ void vagasPorAndar(){
         }
     }
 
-    if (livres == 0) printf("  Nenhuma vaga livre neste andar.\n");
+    if (livres == 0) printf("\nNenhuma vaga livre neste andar.\n");
     else printf("\nTotal: %d vaga(s) livre(s).\n", livres);
 
     aguardar();
@@ -114,7 +114,7 @@ void vagasEstacionamento(){
             livres1++; 
         }
     }
-    if(livres1 == 0) printf("  Nenhuma vaga livre.\n");
+    if(livres1 == 0) printf("\nNenhuma vaga livre.\n");
     total += livres1;
 
     printf("\nSubsolo:\n");
@@ -125,7 +125,7 @@ void vagasEstacionamento(){
             livres0++;
         }
     }
-    if(livres0 == 0) printf("  Nenhuma vaga livre.\n");
+    if(livres0 == 0) printf("\nNenhuma vaga livre.\n");
     total += livres0;
 
     printf("\nTotal geral: %d vaga(s) livre(s).\n", total);
